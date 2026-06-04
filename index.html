@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Racer — Chrome Experiment clone</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0d0f1a" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Racer" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png" />
+  <link rel="icon" type="image/svg+xml" href="icons/icon.svg" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- HOME: intro animata + crea/entra in una stanza -->
+  <section id="screen-home" class="screen active">
+    <h1 class="racer-logo">RACER</h1>
+    <!-- 5 linee colorate (palette gara: rosso, arancione, giallo, verde, blu) sotto RACER -->
+    <div class="streaks">
+      <span class="streak" style="--y:  5vh; --c: #ff3b30; --d: 0.00s"></span>
+      <span class="streak" style="--y: 11vh; --c: #ff9500; --d: 0.06s"></span>
+      <span class="streak" style="--y: 17vh; --c: #ffd60a; --d: 0.12s"></span>
+      <span class="streak" style="--y: 23vh; --c: #34c759; --d: 0.18s"></span>
+      <span class="streak" style="--y: 29vh; --c: #2d6cff; --d: 0.24s"></span>
+    </div>
+    <div class="home-actions">
+      <button id="btn-create" class="big">Create race</button>
+      <div class="join-row">
+        <input id="input-code" maxlength="4" placeholder="CODE" autocomplete="off" autocapitalize="characters" />
+        <button id="btn-join">Join</button>
+      </div>
+      <p id="home-error" class="error"></p>
+    </div>
+  </section>
+
+  <!-- LOBBY: codice, QR, lista giocatori -->
+  <section id="screen-lobby" class="screen">
+    <h2>Room <span id="lobby-code" class="code"></span></h2>
+    <canvas id="qr"></canvas>
+    <p class="hint">Scan the QR or open this site and type the code</p>
+    <p id="lobby-url" class="hint" style="word-break: break-all;"></p>
+    <ul id="player-list"></ul>
+    <div id="laps-picker" class="laps">
+      <span>Laps:</span>
+      <button data-laps="1">1</button>
+      <button data-laps="2">2</button>
+      <button data-laps="3">3</button>
+      <button data-laps="4">4</button>
+      <button data-laps="5">5</button>
+    </div>
+    <div id="lanes-picker" class="lane-toggle">
+      <span>Show empty lanes</span>
+      <button id="btn-lanes" class="switch" role="switch" aria-checked="true">
+        <span class="knob"></span>
+      </button>
+    </div>
+    <button id="btn-start" class="big" hidden>Go!</button>
+    <p id="lobby-hint" class="hint"></p>
+  </section>
+
+  <!-- COUNTDOWN -->
+  <section id="screen-countdown" class="screen">
+    <div id="countdown-num">3</div>
+  </section>
+
+  <!-- ANIMAZIONE ARRIVO (mostrata quando il giocatore taglia il traguardo) -->
+  <section id="screen-finish-anim" class="screen">
+    <div class="finish-banner">FINISH!</div>
+    <div id="finish-pos" class="finish-banner finish-pos"></div>
+  </section>
+
+  <!-- GARA -->
+  <section id="screen-race" class="screen">
+    <canvas id="game"></canvas>
+    <button id="btn-exit" title="Leave race">✕</button>
+    <div id="hud">
+      <span id="hud-lap">Lap 1/3</span>
+      <span id="hud-pos"></span>
+    </div>
+    <div id="tap-hint">HOLD TO ACCELERATE</div>
+  </section>
+
+  <!-- RISULTATI -->
+  <section id="screen-results" class="screen">
+    <h2>Results</h2>
+    <ol id="results-list"></ol>
+    <button id="btn-again" class="big">Retry</button>
+  </section>
+
+  <script src="js/vendor/qrcode-generator.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
